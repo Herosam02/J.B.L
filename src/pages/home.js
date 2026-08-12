@@ -20,7 +20,7 @@ const projects = [
 ]
 
 const html = `
-  <section class="page-hero" style="padding-top:110px;padding-bottom:40px;min-height:auto;background:#000">
+  <section class="page-hero" style="padding-top:110px;padding-bottom:40px;min-height:auto;background:#000;display:flex;flex-direction:column">
     <div class="video-card-wrapper">
       <div class="video-card">
         <video id="heroVideo" src="/images/hero-video.mp4" preload="metadata" playsinline></video>
