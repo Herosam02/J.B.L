@@ -29,11 +29,11 @@ const html = `
         </button>
       </div>
     </div>
-    <div class="page-hero-content" style="margin-top:32px">
+    <div class="page-hero-content" style="margin-top:32px;text-align:center;max-width:760px;margin-left:auto;margin-right:auto">
       <p class="eyebrow light"><span></span> Engineering progress, built to last</p>
       <h1>Powering the<br><em>next connection.</em></h1>
       <p class="lede">JBL Engineering delivers dependable electrical, telecoms and infrastructure solutions for the systems that keep modern life moving.</p>
-      <div style="display:flex;gap:28px;align-items:center;margin-top:38px;flex-wrap:wrap">
+      <div style="display:flex;gap:28px;align-items:center;margin-top:38px;flex-wrap:wrap;justify-content:center">
         <a class="button button-primary" href="services.html">Explore capabilities <span>↗</span></a>
         <a class="text-link light-link" href="about.html">Meet JBL <span>→</span></a>
       </div>
