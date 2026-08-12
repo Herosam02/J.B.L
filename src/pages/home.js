@@ -20,10 +20,16 @@ const projects = [
 ]
 
 const html = `
-  <section class="page-hero" style="min-height:88vh">
-    <div class="page-hero-image" style="background-image:url('${IMAGES.tower}')"></div>
-    <div class="page-hero-overlay"></div>
-    <div class="page-hero-content">
+  <section class="page-hero" style="padding-top:110px;padding-bottom:60px;min-height:auto">
+    <div class="video-card-wrapper">
+      <div class="video-card" style="height:80%;width:80%">
+        <video id="heroVideo" src="/images/hero-video.mp4" preload="metadata" playsinline></video>
+        <button class="video-play-pause" id="heroPlayPause" aria-label="Play video">
+          <svg viewBox="0 0 24 24" fill="currentColor" width="40" height="40"><path d="M8 5v14l11-7z"/></svg>
+        </button>
+      </div>
+    </div>
+    <div class="page-hero-content" style="margin-top:48px">
       <p class="eyebrow light"><span></span> Engineering progress, built to last</p>
       <h1>Powering the<br><em>next connection.</em></h1>
       <p class="lede">JBL Engineering delivers dependable electrical, telecoms and infrastructure solutions for the systems that keep modern life moving.</p>
@@ -90,3 +96,20 @@ const html = `
 
 document.querySelector('#app').innerHTML = renderShell('Home', html)
 initShell()
+
+const video = document.getElementById('heroVideo')
+const playPauseBtn = document.getElementById('heroPlayPause')
+if (video && playPauseBtn) {
+  playPauseBtn.addEventListener('click', () => {
+    if (video.paused) {
+      video.play()
+      playPauseBtn.innerHTML = `<svg viewBox="0 0 24 24" fill="currentColor" width="40" height="40"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>`
+    } else {
+      video.pause()
+      playPauseBtn.innerHTML = `<svg viewBox="0 0 24 24" fill="currentColor" width="40" height="40"><path d="M8 5v14l11-7z"/></svg>`
+    }
+  })
+  video.addEventListener('ended', () => {
+    playPauseBtn.innerHTML = `<svg viewBox="0 0 24 24" fill="currentColor" width="40" height="40"><path d="M8 5v14l11-7z"/></svg>`
+  })
+}
