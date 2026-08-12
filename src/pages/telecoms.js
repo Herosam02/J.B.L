@@ -1,0 +1,26 @@
+import { servicePage, IMAGES } from './service-template.js'
+
+servicePage({
+  title: 'Telecommunications<br><em>Infrastructure.</em>',
+  eyebrow: 'Service 02',
+  hero: IMAGES.tower,
+  lede: 'Reliable telecoms infrastructure, including FTTH and fibre deployment, built to keep people connected.',
+  intro: {
+    heading: 'Connecting<br><em>people.</em>',
+    lead: 'We deliver telecommunications infrastructure that connects people and communities — from tower installations to fibre deployment and beyond.',
+    paragraphs: [
+      'Our teams handle site preparation, equipment installation, integration and commissioning with a focus on safety and technical accuracy.',
+      'We work across active networks, new builds and upgrade projects, always with the same standard of care.',
+    ],
+  },
+  capabilities: [
+    ['01', 'Site preparation', 'Civil and electrical preparation for new telecom sites.'],
+    ['02', 'Equipment installation', 'Antenna, radio and tower equipment installation and integration.'],
+    ['03', 'FTTH deployment', 'Fibre-to-the-home deployment for last-mile connectivity.'],
+    ['04', 'Commissioning', 'System commissioning and integration testing.'],
+    ['05', 'Upgrades', 'Technology refresh and capacity upgrade programmes.'],
+    ['06', 'Maintenance', 'Ongoing site maintenance and rapid response support.'],
+  ],
+  image: IMAGES.technician,
+  next: { href: 'fibre.html', label: 'Fibre Hub Systems' },
+})

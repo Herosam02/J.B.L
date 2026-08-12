@@ -1,0 +1,26 @@
+import { servicePage, IMAGES } from './service-template.js'
+
+servicePage({
+  title: 'BTS<br><em>Operations.</em>',
+  eyebrow: 'Service 04',
+  hero: IMAGES.construction,
+  lede: 'BTS sites operations and maintenance as SMC — keeping base transceiver stations live and performing.',
+  intro: {
+    heading: 'Keeping base<br>stations <em>live.</em>',
+    lead: 'We provide BTS sites operations and maintenance as SMC (Site Maintenance Contractor) — the maintenance, integration and support that keep base transceiver stations performing at their best.',
+    paragraphs: [
+      'Our field teams handle routine maintenance, equipment integration, troubleshooting and support across active base station sites.',
+      'We understand that every minute a site is down matters, and we respond with the urgency and discipline that demands.',
+    ],
+  },
+  capabilities: [
+    ['01', 'Routine maintenance', 'Scheduled maintenance visits to keep sites healthy.'],
+    ['02', 'Equipment integration', 'New equipment integration and swap-outs at active sites.'],
+    ['03', 'Troubleshooting', 'Rapid fault finding and resolution to minimise downtime.'],
+    ['04', 'Power support', 'Backup power system checks and battery replacement.'],
+    ['05', 'Site audits', 'Comprehensive site audits and condition reporting.'],
+    ['06', 'Rapid response', 'Emergency response for critical site issues.'],
+  ],
+  image: IMAGES.technician,
+  next: { href: 'transmission.html', label: 'Transmission Links' },
+})
