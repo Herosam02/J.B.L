@@ -20,7 +20,7 @@ const projects = [
 ]
 
 const html = `
-  <section class="page-hero" style="padding-top:110px;padding-bottom:60px;min-height:auto;background:#000">
+  <section class="page-hero" style="padding-top:110px;padding-bottom:40px;min-height:auto;background:#000">
     <div class="video-card-wrapper">
       <div class="video-card">
         <video id="heroVideo" src="/images/hero-video.mp4" preload="metadata" playsinline></video>
@@ -29,7 +29,7 @@ const html = `
         </button>
       </div>
     </div>
-    <div class="page-hero-content" style="margin-top:48px">
+    <div class="page-hero-content" style="margin-top:32px">
       <p class="eyebrow light"><span></span> Engineering progress, built to last</p>
       <h1>Powering the<br><em>next connection.</em></h1>
       <p class="lede">JBL Engineering delivers dependable electrical, telecoms and infrastructure solutions for the systems that keep modern life moving.</p>
