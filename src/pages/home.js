@@ -22,7 +22,7 @@ const projects = [
 const html = `
   <section class="page-hero" style="padding-top:110px;padding-bottom:60px;min-height:auto;background:#000">
     <div class="video-card-wrapper">
-      <div class="video-card" style="height:80%;width:80%">
+      <div class="video-card">
         <video id="heroVideo" src="/images/hero-video.mp4" preload="metadata" playsinline></video>
         <button class="video-play-pause" id="heroPlayPause" aria-label="Play video">
           <svg viewBox="0 0 24 24" fill="currentColor" width="40" height="40"><path d="M8 5v14l11-7z"/></svg>
