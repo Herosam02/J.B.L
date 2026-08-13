@@ -138,6 +138,7 @@ export function renderShell(pageId, contentHtml) {
           <p class="footer-col-title">Contact</p>
           <a href="mailto:jblengineering1@gmail.com">jblengineering1@gmail.com</a>
           <a href="tel:0704440562">0704 440 562</a>
+          <a href="https://wa.me/234704440562" target="_blank" rel="noopener">WhatsApp ↗</a>
           <a href="contact.html">Send an enquiry →</a>
           <span>5, Road 2, Oluode Estate,<br>Oluyole Extension, Ibadan</span>
         </div>
@@ -145,7 +146,7 @@ export function renderShell(pageId, contentHtml) {
       <p class="footer-bottom">© 2024 JBL Engineering. Built for progress.</p>
     </footer>`
 
-  return `<div class="site-shell">${navbar}<main class="page-content">${contentHtml}</main>${footer}</div>`
+  return `<div class="site-shell">${navbar}<main class="page-content">${contentHtml}</main>${footer}<a class="whatsapp-float" href="https://wa.me/234704440562" target="_blank" rel="noopener" aria-label="Chat on WhatsApp">💬</a></div>`
 }
 
 export function initShell() {
