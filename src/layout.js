@@ -146,7 +146,7 @@ export function renderShell(pageId, contentHtml) {
       <p class="footer-bottom">© 2024 JBL Engineering. Built for progress.</p>
     </footer>`
 
-  return `<div class="site-shell">${navbar}<main class="page-content">${contentHtml}</main>${footer}<a class="whatsapp-float" href="https://wa.me/234704440562" target="_blank" rel="noopener" aria-label="Chat on WhatsApp">💬</a></div>`
+  return `<div class="site-shell">${navbar}<main class="page-content">${contentHtml}</main>${footer}<a class="whatsapp-float" href="https://wa.me/234704440562" target="_blank" rel="noopener" aria-label="Chat on WhatsApp"><svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg></a><button class="ai-chatbot-toggle" id="aiChatToggle" aria-label="Open AI assistant">AI</button><div class="ai-chatbot-panel" id="aiChatPanel"><div class="ai-chatbot-header"><span>JBL Assistant</span><button id="aiChatClose" aria-label="Close chat">×</button></div><div class="ai-chatbot-messages" id="aiChatMessages"><div class="ai-chatbot-message bot">Hello! I am the JBL Assistant. Choose a question below or type your own.</div></div><div class="ai-chatbot-questions" id="aiChatQuestions"></div></div></div>`
 }
 
 export function initShell() {
@@ -253,4 +253,41 @@ export function initShell() {
       card.style.display = filter === 'all' || card.dataset.category === filter ? 'grid' : 'none'
     })
   }))
+
+  // AI Chatbot
+  const chatToggle = document.getElementById('aiChatToggle')
+  const chatPanel = document.getElementById('aiChatPanel')
+  const chatClose = document.getElementById('aiChatClose')
+  const chatMessages = document.getElementById('aiChatMessages')
+  const chatQuestions = document.getElementById('aiChatQuestions')
+
+  const qa = {
+    'What services does JBL offer?': 'JBL offers alternative power, telecommunications, fibre hub systems, BTS operations, transmission links, energy systems, network access, security systems, vertical transport, and products & supply.',
+    'Where is JBL located?': 'JBL is located at 5, Road 2, Oluode Estate, Oluyole Extension, Ibadan.',
+    'How can I contact JBL?': 'You can contact JBL via email at jblengineering1@gmail.com, phone at 0704 440 562, or WhatsApp through the chat button on this site.',
+    'When was JBL established?': 'JBL Engineering was established in April 2007.',
+    'Does JBL do telecom infrastructure?': 'Yes, JBL specialises in telecommunications infrastructure installation, including FTTH, fibre deployment, and BTS operations.',
+    'Can JBL handle power systems?': 'Yes, JBL provides power systems integration, maintenance, backup solutions, and right-sized dimensioning for telecom and infrastructure sites.',
+  }
+
+  const questions = Object.keys(qa)
+
+  const renderQuestions = () => {
+    chatQuestions.innerHTML = questions.map(q => `<button>${q}</button>`).join('')
+    chatQuestions.querySelectorAll('button').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const q = btn.textContent
+        chatMessages.innerHTML += `<div class="ai-chatbot-message user">${q}</div>`
+        chatMessages.innerHTML += `<div class="ai-chatbot-message bot">${qa[q]}</div>`
+        chatMessages.scrollTop = chatMessages.scrollHeight
+      })
+    })
+  }
+
+  chatToggle?.addEventListener('click', () => {
+    chatPanel?.classList.toggle('open')
+    if (chatPanel.classList.contains('open') && !chatQuestions.innerHTML) renderQuestions()
+  })
+
+  chatClose?.addEventListener('click', () => chatPanel?.classList.remove('open'))
 }
