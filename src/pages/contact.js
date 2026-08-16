@@ -20,8 +20,9 @@ const html = `
         <p class="body" style="color:#aaa;margin-top:24px;max-width:380px">Whether it is a single site or a multi-site rollout, our team is ready to understand your needs and plan a safe, dependable delivery.</p>
         <div class="contact-details">
           <a href="mailto:jblengineering1@gmail.com">jblengineering1@gmail.com</a>
-          <a href="tel:0704440562">0704 440 562</a>
+          <a href="tel:07044440562">0704 444 0562</a>
           <span>5, Road 2, Oluode Estate,<br>Oluyole Extension, Ibadan</span>
+          <span>38, Opeifa Street,<br>Anthony Village, Lagos</span>
         </div>
       </div>
       <form class="contact-form reveal">
