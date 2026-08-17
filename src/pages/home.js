@@ -23,16 +23,11 @@ const html = `
   <section class="page-hero" style="padding-top:110px;padding-bottom:40px;min-height:auto;background:#000;display:flex;flex-direction:column">
     <div class="video-card-wrapper">
       <div class="video-card">
-        <video id="heroVideo" src="/images/hero-video.mp4" preload="metadata" playsinline muted loop></video>
-        <div class="video-controls">
-          <button class="video-play-pause" id="heroPlayPause" aria-label="Play video">
-            <svg viewBox="0 0 24 24" fill="currentColor" width="40" height="40"><path d="M8 5v14l11-7z"/></svg>
-          </button>
-          <div class="video-volume">
-            <svg viewBox="0 0 24 24" fill="currentColor" width="22" height="22"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/></svg>
-            <input type="range" id="heroVolume" min="0" max="1" step="0.01" value="0.15" aria-label="Volume">
-          </div>
-        </div>
+        <video id="heroVideo" src="/images/hero-video.mp4" preload="metadata" playsinline muted loop autoplay></video>
+        <button class="video-volume-btn" id="heroVolume" aria-label="Toggle volume">
+          <svg class="icon-low" viewBox="0 0 24 24" fill="currentColor" width="22" height="22"><path d="M7 9v6h4l5 5V4l-5 5H7z"/></svg>
+          <svg class="icon-high" viewBox="0 0 24 24" fill="currentColor" width="22" height="22"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/></svg>
+        </button>
       </div>
     </div>
     <div class="page-hero-content" style="margin-top:32px;text-align:center;max-width:760px;margin-left:auto;margin-right:auto">
@@ -105,21 +100,20 @@ initShell()
 
 const video = document.getElementById('heroVideo')
 const playPauseBtn = document.getElementById('heroPlayPause')
-const videoCard = document.querySelector('.video-card')
-const volumeSlider = document.getElementById('heroVolume')
+const volumeBtn = document.getElementById('heroVolume')
 
 const updatePlayIcon = () => {
-  playPauseBtn.innerHTML = `<svg viewBox="0 0 24 24" fill="currentColor" width="40" height="40"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>`
+  playPauseBtn.innerHTML = `<svg viewBox="0 0 24 24" fill="currentColor" width="22" height="22"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>`
 }
 const updatePauseIcon = () => {
-  playPauseBtn.innerHTML = `<svg viewBox="0 0 24 24" fill="currentColor" width="40" height="40"><path d="M8 5v14l11-7z"/></svg>`
+  playPauseBtn.innerHTML = `<svg viewBox="0 0 24 24" fill="currentColor" width="22" height="22"><path d="M8 5v14l11-7z"/></svg>`
 }
 
 if (video && playPauseBtn) {
   video.volume = 0.15
-  video.muted = true
-  updatePlayIcon()
-  let hasPlayed = false
+  video.muted = false
+  updatePauseIcon()
+  let isLow = true
 
   const playVideo = () => {
     video.play().catch(() => {})
@@ -135,34 +129,32 @@ if (video && playPauseBtn) {
     e.stopPropagation()
     if (video.paused) {
       playVideo()
-      hasPlayed = true
     } else {
       pauseVideo()
     }
   })
 
-  if (videoCard) {
-    videoCard.addEventListener('mouseenter', () => {
-      if (video.paused) {
-        playVideo()
+  if (volumeBtn) {
+    volumeBtn.addEventListener('click', (e) => {
+      e.stopPropagation()
+      isLow = !isLow
+      if (isLow) {
+        video.volume = 0.15
+        volumeBtn.classList.add('low')
+        volumeBtn.classList.remove('high')
+      } else {
+        video.volume = 1
+        volumeBtn.classList.add('high')
+        volumeBtn.classList.remove('low')
       }
-      hasPlayed = true
     })
-  }
-
-  if (volumeSlider) {
-    volumeSlider.addEventListener('input', () => {
-      const val = parseFloat(volumeSlider.value)
-      video.volume = val
-      video.muted = val === 0
-    })
+    volumeBtn.classList.add('low')
   }
 
   video.addEventListener('click', () => {
     video.muted = !video.muted
-    if (!video.muted && video.volume === 0) {
-      video.volume = 0.15
-      volumeSlider.value = 0.15
+    if (!video.muted) {
+      video.volume = isLow ? 0.15 : 1
     }
   })
 
