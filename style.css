@@ -262,7 +262,9 @@
   .footer-grid{grid-template-columns:1fr 1fr;gap:30px;row-gap:34px}
   .footer-brand{grid-column:span 2}
   .video-card-wrapper{max-width:100%;padding:0}
-  .video-card{aspect-ratio:16/9;min-height:auto}
+  .video-card{aspect-ratio:16/9;min-height:auto;max-height:55vh}
+  .video-play-pause{width:56px;height:56px}
+  .video-play-pause svg{width:32px;height:32px}
 }
 @media(max-width:600px){
   .page-hero{padding:100px 5vw 32px;min-height:auto;align-items:flex-end}
@@ -298,4 +300,6 @@
   .whatsapp-float svg{width:22px;height:22px}
   .ai-chatbot-toggle{width:42px;height:42px;bottom:12px;right:62px;font-size:16px}
   .ai-chatbot-panel{width:calc(100vw - 24px);right:12px;bottom:72px;max-height:45vh}
+  .video-play-pause{width:48px;height:48px}
+  .video-play-pause svg{width:28px;height:28px}
 }

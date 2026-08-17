@@ -23,7 +23,7 @@ const html = `
   <section class="page-hero" style="padding-top:110px;padding-bottom:40px;min-height:auto;background:#000;display:flex;flex-direction:column">
     <div class="video-card-wrapper">
       <div class="video-card">
-        <video id="heroVideo" src="/images/hero-video.mp4" preload="metadata" playsinline></video>
+        <video id="heroVideo" src="/images/hero-video.mp4" preload="metadata" playsinline muted loop></video>
         <button class="video-play-pause" id="heroPlayPause" aria-label="Play video">
           <svg viewBox="0 0 24 24" fill="currentColor" width="40" height="40"><path d="M8 5v14l11-7z"/></svg>
         </button>
@@ -99,17 +99,61 @@ initShell()
 
 const video = document.getElementById('heroVideo')
 const playPauseBtn = document.getElementById('heroPlayPause')
+const videoCard = document.querySelector('.video-card')
+
+const updatePlayIcon = () => {
+  playPauseBtn.innerHTML = `<svg viewBox="0 0 24 24" fill="currentColor" width="40" height="40"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>`
+}
+const updatePauseIcon = () => {
+  playPauseBtn.innerHTML = `<svg viewBox="0 0 24 24" fill="currentColor" width="40" height="40"><path d="M8 5v14l11-7z"/></svg>`
+}
+
 if (video && playPauseBtn) {
-  playPauseBtn.addEventListener('click', () => {
+  video.volume = 0.15
+  video.muted = true
+  updatePauseIcon()
+
+  const playVideo = () => {
+    video.play().catch(() => {})
+    updatePauseIcon()
+  }
+
+  const pauseVideo = () => {
+    video.pause()
+    updatePlayIcon()
+  }
+
+  playPauseBtn.addEventListener('click', (e) => {
+    e.stopPropagation()
     if (video.paused) {
-      video.play()
-      playPauseBtn.innerHTML = `<svg viewBox="0 0 24 24" fill="currentColor" width="40" height="40"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>`
+      playVideo()
     } else {
-      video.pause()
-      playPauseBtn.innerHTML = `<svg viewBox="0 0 24 24" fill="currentColor" width="40" height="40"><path d="M8 5v14l11-7z"/></svg>`
+      pauseVideo()
     }
   })
+
+  if (videoCard) {
+    videoCard.addEventListener('mouseenter', () => {
+      video.muted = false
+      playVideo()
+    })
+
+    videoCard.addEventListener('mouseleave', () => {
+      video.muted = true
+      pauseVideo()
+    })
+  }
+
+  video.addEventListener('click', () => {
+    video.muted = !video.muted
+    if (!video.muted) {
+      video.volume = 1
+    } else {
+      video.volume = 0.15
+    }
+  })
+
   video.addEventListener('ended', () => {
-    playPauseBtn.innerHTML = `<svg viewBox="0 0 24 24" fill="currentColor" width="40" height="40"><path d="M8 5v14l11-7z"/></svg>`
+    updatePlayIcon()
   })
 }
