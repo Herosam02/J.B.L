@@ -113,10 +113,10 @@ const updatePauseIcon = () => {
 }
 
 if (video && playPauseBtn) {
-  video.volume = 0.15
-  video.muted = false
+  video.volume = 1
+  video.muted = true
   updatePauseIcon()
-  let isLow = true
+  let isMuted = true
 
   const playVideo = () => {
     video.play().catch(() => {})
@@ -140,14 +140,12 @@ if (video && playPauseBtn) {
   if (volumeBtn) {
     volumeBtn.addEventListener('click', (e) => {
       e.stopPropagation()
-      isLow = !isLow
-      video.muted = false
-      if (isLow) {
-        video.volume = 0.15
+      isMuted = !isMuted
+      video.muted = isMuted
+      if (isMuted) {
         volumeBtn.classList.add('low')
         volumeBtn.classList.remove('high')
       } else {
-        video.volume = 1
         volumeBtn.classList.add('high')
         volumeBtn.classList.remove('low')
       }
@@ -157,8 +155,13 @@ if (video && playPauseBtn) {
 
   video.addEventListener('click', () => {
     video.muted = !video.muted
-    if (!video.muted) {
-      video.volume = isLow ? 0.15 : 1
+    isMuted = video.muted
+    if (isMuted) {
+      volumeBtn.classList.add('low')
+      volumeBtn.classList.remove('high')
+    } else {
+      volumeBtn.classList.add('high')
+      volumeBtn.classList.remove('low')
     }
   })
 
