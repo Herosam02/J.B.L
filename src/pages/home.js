@@ -23,7 +23,7 @@ const html = `
   <section class="page-hero" style="padding-top:110px;padding-bottom:40px;min-height:auto;background:#000;display:flex;flex-direction:column">
     <div class="video-card-wrapper">
       <div class="video-card">
-        <video id="heroVideo" src="/images/hero-video.mp4" preload="metadata" playsinline muted loop autoplay></video>
+         <video id="heroVideo" src="/images/hero-video.mp4" preload="auto" playsinline muted loop autoplay></video>
         <button class="video-play-pause" id="heroPlayPause" aria-label="Play video">
           <svg viewBox="0 0 24 24" fill="currentColor" width="28" height="28"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
         </button>
@@ -106,10 +106,10 @@ const playPauseBtn = document.getElementById('heroPlayPause')
 const volumeBtn = document.getElementById('heroVolume')
 
 const updatePlayIcon = () => {
-  playPauseBtn.innerHTML = `<svg viewBox="0 0 24 24" fill="currentColor" width="22" height="22"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>`
+  playPauseBtn.innerHTML = `<svg viewBox="0 0 24 24" fill="currentColor" width="28" height="28"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>`
 }
 const updatePauseIcon = () => {
-  playPauseBtn.innerHTML = `<svg viewBox="0 0 24 24" fill="currentColor" width="22" height="22"><path d="M8 5v14l11-7z"/></svg>`
+  playPauseBtn.innerHTML = `<svg viewBox="0 0 24 24" fill="currentColor" width="28" height="28"><path d="M8 5v14l11-7z"/></svg>`
 }
 
 if (video && playPauseBtn) {
@@ -127,6 +127,10 @@ if (video && playPauseBtn) {
     video.pause()
     updatePlayIcon()
   }
+
+  video.addEventListener('canplay', () => {
+    playVideo()
+  })
 
   playPauseBtn.addEventListener('click', (e) => {
     e.stopPropagation()
@@ -169,3 +173,5 @@ if (video && playPauseBtn) {
     updatePlayIcon()
   })
 }
+
+

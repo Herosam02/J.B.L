@@ -85,8 +85,7 @@ export function renderShell(pageId, contentHtml) {
   const navbar = `
     <header class="navbar" id="navbar">
       <a class="brand" href="index.html" aria-label="JBL Engineering home">
-        <span class="brand-mark">JBL</span>
-        <span class="brand-copy"><strong>JBL</strong><small>ENGINEERING</small></span>
+        <img class="brand-logo" src="/images/logo.png" alt="JBL Engineering logo" />
       </a>
       <nav class="nav-menu" aria-label="Main navigation">${navHtml}</nav>
       <a class="nav-cta" href="contact.html">Get in touch <span>↗</span></a>
