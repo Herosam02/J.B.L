@@ -3,10 +3,10 @@
 :root{font-family:'Manrope',Arial,sans-serif;color:#171717;background:#f3f1ed;font-synthesis:none;text-rendering:optimizeLegibility;-webkit-font-smoothing:antialiased;--ink:#171717;--muted:#6d6b66;--cream:#f3f1ed;--paper:#fbfaf7;--orange:#ff5a1f;--yellow:#f7b51b;--line:rgba(23,23,23,.14);--dark:#161717;--mono:'DM Mono',monospace}
 
 /* Thin scrollbar, applied globally on every page */
-*{scrollbar-width:thin;scrollbar-color:var(--orange) transparent}
-::-webkit-scrollbar{width:6px;height:6px}
-::-webkit-scrollbar-track{background:transparent}
-::-webkit-scrollbar-thumb{background:var(--orange);border-radius:3px}
+*{scrollbar-width:thin;scrollbar-color:var(--orange) var(--cream)}
+::-webkit-scrollbar{width:8px;height:8px}
+::-webkit-scrollbar-track{background:var(--cream)}
+::-webkit-scrollbar-thumb{background:var(--orange);border-radius:4px;border:2px solid var(--cream)}
 ::-webkit-scrollbar-thumb:hover{background:var(--yellow)}
 *{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;min-width:320px;background:var(--cream)}a{color:inherit;text-decoration:none}button,input,textarea,select{font:inherit}button{cursor:pointer}h1,h2,h3,h4,p{margin:0}h1,h2,h3{letter-spacing:-.065em;line-height:.95}em{font-style:normal;color:var(--orange)}
 .site-shell{display:flex;flex-direction:column;min-height:100vh}
@@ -74,13 +74,21 @@
 .light-link{color:#fff}
 
 /* Page hero */
-.page-hero{position:relative;min-height:62vh;display:flex;align-items:flex-end;padding:130px 6vw 70px;color:#fff}
+.page-hero{position:relative;min-height:100vh;display:flex;flex-direction:column;padding:0;color:#fff}
 .page-hero-image{position:absolute;inset:0;background-size:cover;background-position:center;filter:grayscale(40%)}
 .page-hero-overlay{position:absolute;inset:0;background:linear-gradient(90deg,rgba(15,16,16,.88) 4%,rgba(15,16,16,.42) 59%,rgba(15,16,16,.25)),linear-gradient(0deg,rgba(15,16,16,.55),transparent 55%)}
-.page-hero-content{position:relative;z-index:1;max-width:760px}
+.page-hero-content{position:relative;z-index:1;max-width:760px;padding:60px 6vw}
 .page-hero h1{font-size:clamp(44px,6.5vw,88px)}
 .page-hero h1 em{color:#ff9b4b}
 .page-hero .lede{font-size:16px;line-height:1.7;color:rgba(255,255,255,.82);max-width:480px;margin-top:28px}
+
+.page-hero .page-hero-image ~ .page-hero-content {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+}
 
 /* Page sections */
 .page-section{padding:100px 6vw}
@@ -212,11 +220,10 @@
 .footer-contact span{font-size:12px;color:#888;line-height:1.6;margin-top:3px}
 .footer-bottom{font:500 10px var(--mono);color:#666;letter-spacing:.05em;padding-top:24px;border-top:1px solid rgba(255,255,255,.1)}
 
-/* Video card hero */
-.video-card-wrapper{display:flex;justify-content:center;align-items:center;width:100%;max-width:1200px;margin:0 auto;padding:0 24px}
-.video-card{position:relative;overflow:hidden;border-radius:0;background:#000;box-shadow:0 20px 60px rgba(0,0,0,.35);aspect-ratio:16/9;width:100%;max-height:70vh;display:flex;align-items:center;justify-content:center}
+.video-card-wrapper{position:relative;width:100%;height:100vh;overflow:hidden}
+.video-card{position:relative;overflow:hidden;border-radius:0;background:#000;width:100%;height:100%;display:flex;align-items:center;justify-content:center}
 .video-card video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
-.video-volume-btn{position:absolute;bottom:12px;right:12px;background:rgba(0,0,0,.6);border:1px solid rgba(255,255,255,.15);border-radius:50%;width:40px;height:40px;display:flex;align-items:center;justify-content:center;color:#fff;padding:0;cursor:pointer;transition:.2s;backdrop-filter:blur(8px);z-index:2}
+.video-volume-btn{position:absolute;top:80px;right:12px;background:rgba(0,0,0,.6);border:1px solid rgba(255,255,255,.15);border-radius:50%;width:40px;height:40px;display:flex;align-items:center;justify-content:center;color:#fff;padding:0;cursor:pointer;transition:.2s;backdrop-filter:blur(8px);z-index:3}
 .video-volume-btn:hover{background:rgba(0,0,0,.8);transform:scale(1.08)}
 .video-volume-btn .icon-high{display:none}
 .video-volume-btn.high .icon-low{display:none}
@@ -224,6 +231,22 @@
 .video-volume-btn.low{opacity:.85}
 .video-play-pause{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);background:rgba(255,255,255,.15);border:2px solid rgba(255,255,255,.8);border-radius:50%;width:70px;height:70px;display:flex;align-items:center;justify-content:center;color:#2563eb;padding:0;cursor:pointer;transition:.25s;backdrop-filter:blur(4px);z-index:2}
 .video-play-pause:hover{background:rgba(255,255,255,.3);transform:translate(-50%,-50%) scale(1.05)}
+
+.hero-buttons-overlay{position:absolute;bottom:60px;left:0;right:0;z-index:3;display:flex;gap:28px;align-items:center;justify-content:center;flex-wrap:wrap;padding:0 20px}
+.video-underlay{position:absolute;inset:0;background:linear-gradient(0deg,rgba(0,0,0,.95) 0%,rgba(0,0,0,.8) 40%,rgba(0,0,0,.55) 70%,rgba(0,0,0,.25) 100%);z-index:1;pointer-events:none}
+.video-center-text{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);z-index:2;text-align:center;color:#fff;max-width:760px;padding:0 24px;pointer-events:none}
+.video-center-text .eyebrow{color:#ffb08b}
+.video-center-text h1{font-size:clamp(36px,5.5vw,72px);letter-spacing:-.04em;line-height:.95;margin:16px 0 18px}
+.video-center-text h1 em{color:#ff9b4b}
+.video-center-text .lede{font-size:15px;line-height:1.7;color:rgba(255,255,255,.85);max-width:520px;margin:0 auto}
+
+@media(max-width:1024px){
+  .video-center-text h1{font-size:clamp(32px,6vw,64px)}
+  .video-center-text .lede{font-size:14px;max-width:100%}
+  .hero-buttons-overlay{bottom:40px;gap:20px}
+}
+
+
 
 /* WhatsApp float */
 .whatsapp-float{position:fixed;bottom:24px;right:24px;width:56px;height:56px;background:#25d366;border-radius:50%;display:flex;align-items:center;justify-content:center;z-index:90;box-shadow:0 8px 24px rgba(0,0,0,.25);transition:.25s;text-decoration:none}
@@ -245,18 +268,11 @@
 .ai-chatbot-questions button{background:#fff;border:1px solid var(--line);border-radius:20px;padding:7px 12px;font-size:11px;font-weight:700;cursor:pointer;transition:.2s;color:var(--ink)}
 .ai-chatbot-questions button:hover{border-color:var(--orange);color:var(--orange)}
 
-/* Responsive */
-@media(max-width:1024px){
-  .nav-menu{gap:2px}
-  .nav-link{padding:10px 10px;font-size:11px}
-  .grid-4{grid-template-columns:repeat(2,1fr)}
-  .footer-grid{grid-template-columns:1fr 1fr 1fr;row-gap:36px}
-}
 @media(max-width:860px){
   .nav-menu,.nav-cta{display:none}
   .hamburger{display:flex}
   .navbar{height:64px}
-  .page-hero{padding:110px 6vw 40px;min-height:auto;align-items:flex-end}
+  .page-hero{padding:0;min-height:100vh;display:flex;flex-direction:column}
   .page-section{padding:80px 6vw}
   .grid-2,.grid-3,.grid-4,.team-grid,.cert-grid,.process-steps,.service-grid{grid-template-columns:1fr}
   .stat-strip{grid-template-columns:repeat(2,1fr)}
@@ -264,15 +280,20 @@
   .project-card{grid-template-columns:1fr;gap:24px}
   .footer-grid{grid-template-columns:1fr 1fr;gap:30px;row-gap:34px}
   .footer-brand{grid-column:span 2}
-  .video-card-wrapper{max-width:100%;padding:0}
-  .video-card{aspect-ratio:16/9;min-height:auto;max-height:55vh}
+  .video-card-wrapper{max-width:100%;padding:0;height:100vh}
+  .video-card{aspect-ratio:auto;min-height:auto;max-height:none}
   .video-play-pause{width:44px;height:44px}
   .video-play-pause svg{width:26px;height:26px}
-  .video-volume-btn{width:36px;height:36px}
+  .video-volume-btn{width:36px;height:36px;top:72px}
   .video-volume-btn svg{width:18px;height:18px}
+  .video-center-text h1{font-size:clamp(28px,7vw,48px)}
+  .video-center-text .lede{font-size:13px;max-width:100%}
+  .hero-buttons-overlay{bottom:30px;gap:16px}
+  .hero-buttons-overlay .button{padding:14px 18px;font-size:10px}
+  .hero-buttons-overlay .text-link{font-size:10px}
 }
 @media(max-width:600px){
-  .page-hero{padding:100px 5vw 32px;min-height:auto;align-items:flex-end}
+  .page-hero{min-height:auto;align-items:flex-end}
   .page-hero .lede{font-size:14px;max-width:100%}
   .page-section{padding:56px 5vw}
   .card,.service-card{padding:20px}
@@ -288,7 +309,18 @@
   .footer-grid{grid-template-columns:1fr;gap:34px}
   .footer-brand{grid-column:span 1}
   .mobile-menu{width:88vw}
-  .video-card{aspect-ratio:16/9;min-height:auto}
+  .video-card-wrapper{height:65vh;max-height:none}
+  .video-card{aspect-ratio:auto;min-height:auto;height:100%}
+  .video-card video{object-fit:contain}
+  .video-center-text{top:38%}
+  .video-center-text h1{font-size:clamp(16px,5vw,24px);margin:4px 0 8px}
+  .video-center-text .lede{font-size:9px;line-height:1.4;max-width:100%}
+  .video-center-text .eyebrow{font-size:7px}
+  .video-volume-btn{width:32px;height:32px;top:60px;right:8px}
+  .video-volume-btn svg{width:14px;height:14px}
+  .hero-buttons-overlay{bottom:24px;gap:10px;padding:0 12px}
+  .hero-buttons-overlay .button{padding:10px 14px;font-size:9px}
+  .hero-buttons-overlay .text-link{font-size:9px}
   .whatsapp-float{width:48px;height:48px;bottom:16px;right:16px}
   .whatsapp-float svg{width:24px;height:24px}
   .ai-chatbot-toggle{width:48px;height:48px;bottom:16px;right:72px;font-size:18px}
@@ -303,8 +335,17 @@
   .whatsapp-float svg{width:22px;height:22px}
   .ai-chatbot-toggle{width:42px;height:42px;bottom:12px;right:62px;font-size:16px}
   .ai-chatbot-panel{width:calc(100vw - 24px);right:12px;bottom:72px;max-height:45vh}
-  .video-play-pause{width:40px;height:40px}
-  .video-play-pause svg{width:24px;height:24px}
-  .video-volume-btn{width:34px;height:34px;bottom:10px;right:10px}
-  .video-volume-btn svg{width:16px;height:16px}
+  .video-card-wrapper{height:60vh;max-height:none}
+  .video-card{aspect-ratio:auto;min-height:auto;height:100%}
+  .video-card video{object-fit:contain}
+  .video-center-text{top:36%}
+  .video-center-text h1{font-size:clamp(14px,6vw,20px);margin:4px 0 8px}
+  .video-center-text .lede{font-size:8px;line-height:1.4;max-width:100%}
+  .video-center-text .eyebrow{font-size:6px}
+  .hero-buttons-overlay{bottom:20px;gap:8px;padding:0 10px}
+  .hero-buttons-overlay .button{padding:8px 12px;font-size:8px}
+  .hero-buttons-overlay .text-link{font-size:8px}
+  .video-volume-btn{width:28px;height:28px;top:52px;right:6px}
+  .video-volume-btn svg{width:12px;height:12px}
 }
+

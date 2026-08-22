@@ -20,26 +20,24 @@ const projects = [
 ]
 
 const html = `
-  <section class="page-hero" style="padding-top:110px;padding-bottom:40px;min-height:auto;background:#000;display:flex;flex-direction:column">
+  <section class="page-hero" style="background:#000;display:flex;flex-direction:column">
     <div class="video-card-wrapper">
       <div class="video-card">
          <video id="heroVideo" src="/images/hero-video.mp4" preload="auto" playsinline muted loop autoplay></video>
-        <button class="video-play-pause" id="heroPlayPause" aria-label="Play video">
-          <svg viewBox="0 0 24 24" fill="currentColor" width="28" height="28"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
-        </button>
+        <div class="video-underlay"></div>
+        <div class="video-center-text">
+          <p class="eyebrow light"><span></span> Engineering progress, built to last</p>
+          <h1>Powering the<br><em>next connection.</em></h1>
+          <p class="lede">JBL Engineering delivers dependable electrical, telecoms and infrastructure solutions for the systems that keep modern life moving.</p>
+        </div>
         <button class="video-volume-btn" id="heroVolume" aria-label="Toggle volume">
           <svg class="icon-low" viewBox="0 0 24 24" fill="currentColor" width="20" height="20"><path d="M7 9v6h4l5 5V4l-5 5H7z"/></svg>
           <svg class="icon-high" viewBox="0 0 24 24" fill="currentColor" width="20" height="20"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/></svg>
         </button>
-      </div>
-    </div>
-    <div class="page-hero-content" style="margin-top:32px;text-align:center;max-width:760px;margin-left:auto;margin-right:auto">
-      <p class="eyebrow light"><span></span> Engineering progress, built to last</p>
-      <h1>Powering the<br><em>next connection.</em></h1>
-      <p class="lede">JBL Engineering delivers dependable electrical, telecoms and infrastructure solutions for the systems that keep modern life moving.</p>
-      <div style="display:flex;gap:28px;align-items:center;margin-top:38px;flex-wrap:wrap;justify-content:center">
-        <a class="button button-primary" href="services.html">Explore capabilities <span>↗</span></a>
-        <a class="text-link light-link" href="about.html">Meet JBL <span>→</span></a>
+        <div class="hero-buttons-overlay">
+          <a class="button button-primary" href="services.html">Explore capabilities <span>↗</span></a>
+          <a class="text-link light-link" href="about.html">Meet JBL <span>→</span></a>
+        </div>
       </div>
     </div>
   </section>
@@ -102,44 +100,12 @@ document.querySelector('#app').innerHTML = renderShell('Home', html)
 initShell()
 
 const video = document.getElementById('heroVideo')
-const playPauseBtn = document.getElementById('heroPlayPause')
 const volumeBtn = document.getElementById('heroVolume')
 
-const updatePlayIcon = () => {
-  playPauseBtn.innerHTML = `<svg viewBox="0 0 24 24" fill="currentColor" width="28" height="28"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>`
-}
-const updatePauseIcon = () => {
-  playPauseBtn.innerHTML = `<svg viewBox="0 0 24 24" fill="currentColor" width="28" height="28"><path d="M8 5v14l11-7z"/></svg>`
-}
-
-if (video && playPauseBtn) {
+if (video && volumeBtn) {
   video.volume = 1
   video.muted = true
-  updatePauseIcon()
   let isMuted = true
-
-  const playVideo = () => {
-    video.play().catch(() => {})
-    updatePauseIcon()
-  }
-
-  const pauseVideo = () => {
-    video.pause()
-    updatePlayIcon()
-  }
-
-  video.addEventListener('canplay', () => {
-    playVideo()
-  })
-
-  playPauseBtn.addEventListener('click', (e) => {
-    e.stopPropagation()
-    if (video.paused) {
-      playVideo()
-    } else {
-      pauseVideo()
-    }
-  })
 
   if (volumeBtn) {
     volumeBtn.addEventListener('click', (e) => {
@@ -167,10 +133,6 @@ if (video && playPauseBtn) {
       volumeBtn.classList.add('high')
       volumeBtn.classList.remove('low')
     }
-  })
-
-  video.addEventListener('ended', () => {
-    updatePlayIcon()
   })
 }
 

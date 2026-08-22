@@ -97,7 +97,7 @@ export function renderShell(pageId, contentHtml) {
     <footer class="site-footer">
       <div class="footer-grid">
         <div class="footer-brand">
-          <a class="brand" href="index.html"><span class="brand-mark">JBL</span><span class="brand-copy"><strong>JBL</strong><small>ENGINEERING</small></span></a>
+          <a class="brand" href="index.html"><img class="brand-logo" src="/images/logo.png" alt="JBL Engineering logo" /></a>
           <p class="footer-tag">Electrical · Telecoms · Infrastructure</p>
         </div>
         <div class="footer-col">
