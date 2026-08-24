@@ -24,7 +24,7 @@ const html = `
       <p class="eyebrow"><span></span> The JBL standard</p>
       <h2>Principles that<br><em>power our work.</em></h2>
     </div>
-    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line)">
+    <div class="value-grid">
       ${values.map(([num, title, desc]) => `<article class="value-card reveal"><b>${num}</b><h3>${title}</h3><p>${desc}</p></article>`).join('')}
     </div>
   </section>

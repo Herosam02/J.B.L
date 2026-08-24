@@ -20,26 +20,27 @@ const projects = [
 ]
 
 const html = `
-  <section class="page-hero" style="padding-top:110px;padding-bottom:40px;min-height:auto;background:#000;display:flex;flex-direction:column">
+  <section class="page-hero video-hero">
     <div class="video-card-wrapper">
-      <div class="video-card">
-         <video id="heroVideo" src="/images/hero-video.mp4" preload="auto" playsinline muted loop autoplay></video>
-        <button class="video-play-pause" id="heroPlayPause" aria-label="Play video">
-          <svg viewBox="0 0 24 24" fill="currentColor" width="28" height="28"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
+      <div class="video-card" style="background-image:url('${IMAGES.night}')">
+        <video id="heroVideo" data-src="/images/hero-video.mp4" preload="metadata" playsinline webkit-playsinline muted loop autoplay disablepictureinpicture disableremoteplayback aria-label="JBL Engineering showreel"></video>
+        <div class="video-underlay"></div>
+        <button class="video-volume-btn low" id="heroVolume" type="button" aria-label="Turn sound on" aria-pressed="false">
+          <svg class="icon-low" viewBox="0 0 24 24" fill="currentColor" width="20" height="20" aria-hidden="true"><path d="M7 9v6h4l5 5V4l-5 5H7z"/></svg>
+          <svg class="icon-high" viewBox="0 0 24 24" fill="currentColor" width="20" height="20" aria-hidden="true"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/></svg>
         </button>
-        <button class="video-volume-btn" id="heroVolume" aria-label="Toggle volume">
-          <svg class="icon-low" viewBox="0 0 24 24" fill="currentColor" width="20" height="20"><path d="M7 9v6h4l5 5V4l-5 5H7z"/></svg>
-          <svg class="icon-high" viewBox="0 0 24 24" fill="currentColor" width="20" height="20"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/></svg>
+        <button class="video-tap-play" id="heroTapPlay" type="button" aria-label="Play video">
+          <svg viewBox="0 0 24 24" fill="currentColor" width="30" height="30" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
         </button>
       </div>
     </div>
-    <div class="page-hero-content" style="margin-top:32px;text-align:center;max-width:760px;margin-left:auto;margin-right:auto">
+    <div class="video-hero-copy">
       <p class="eyebrow light"><span></span> Engineering progress, built to last</p>
       <h1>Powering the<br><em>next connection.</em></h1>
       <p class="lede">JBL Engineering delivers dependable electrical, telecoms and infrastructure solutions for the systems that keep modern life moving.</p>
-      <div style="display:flex;gap:28px;align-items:center;margin-top:38px;flex-wrap:wrap;justify-content:center">
-        <a class="button button-primary" href="services.html">Explore capabilities <span>↗</span></a>
-        <a class="text-link light-link" href="about.html">Meet JBL <span>→</span></a>
+      <div class="hero-buttons">
+        <a class="button button-primary" href="services.html">Explore capabilities <span>&#8599;</span></a>
+        <a class="text-link light-link" href="about.html">Meet JBL <span>&#8594;</span></a>
       </div>
     </div>
   </section>
@@ -67,7 +68,7 @@ const html = `
 
   <section class="page-section dark">
     <div class="breadcrumb" style="color:rgba(255,255,255,.5)"><a href="index.html" style="color:rgba(255,255,255,.5)">Home</a><span>/</span>Services</div>
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:end;margin-bottom:60px">
+    <div class="section-head">
       <div class="reveal"><p class="eyebrow light"><span></span> What we do</p><h2>One partner.<br><em>Many possibilities.</em></h2></div>
       <p class="body" style="max-width:360px">From first survey to final handover, JBL brings the technical depth and field discipline to move infrastructure forward.</p>
     </div>
@@ -78,9 +79,9 @@ const html = `
 
   <section class="page-section alt">
     <div class="breadcrumb"><a href="index.html">Home</a><span>/</span>Projects</div>
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:end;margin-bottom:50px">
+    <div class="section-head">
       <div class="reveal"><p class="eyebrow"><span></span> Selected work</p><h2>Proof in<br><em>the field.</em></h2></div>
-      <a class="text-link" href="projects.html" style="justify-self:end">View all projects <span>→</span></a>
+      <a class="text-link side" href="projects.html">View all projects <span>→</span></a>
     </div>
     ${projects.map((p, i) => `<article class="project-card reveal" data-category="${i===0?'power':i===1?'fibre':'power'}">
       <div class="project-visual" style="background-image:url('${p[2]}')"><span>0${i+1}</span></div>
@@ -101,77 +102,115 @@ const html = `
 document.querySelector('#app').innerHTML = renderShell('Home', html)
 initShell()
 
+/* ---------------------------------------------------------------
+   Hero video
+
+   Mobile browsers only autoplay video that is muted AND inline, and
+   iOS refuses outright in Low Power Mode. So: start muted+inline,
+   retry play() on the events that signal the file is usable, and if
+   the browser still says no, surface a tap-to-play button instead of
+   leaving a dead black rectangle on the page.
+   --------------------------------------------------------------- */
 const video = document.getElementById('heroVideo')
-const playPauseBtn = document.getElementById('heroPlayPause')
 const volumeBtn = document.getElementById('heroVolume')
+const tapPlay = document.getElementById('heroTapPlay')
 
-const updatePlayIcon = () => {
-  playPauseBtn.innerHTML = `<svg viewBox="0 0 24 24" fill="currentColor" width="28" height="28"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>`
-}
-const updatePauseIcon = () => {
-  playPauseBtn.innerHTML = `<svg viewBox="0 0 24 24" fill="currentColor" width="28" height="28"><path d="M8 5v14l11-7z"/></svg>`
-}
-
-if (video && playPauseBtn) {
-  video.volume = 1
+if (video) {
   video.muted = true
-  updatePauseIcon()
-  let isMuted = true
+  video.defaultMuted = true
+  video.playsInline = true
+  video.volume = 1
 
-  const playVideo = () => {
-    video.play().catch(() => {})
-    updatePauseIcon()
+  const showTapPlay = (show) => tapPlay?.classList.toggle('show', show)
+
+  // The showreel is a heavy file. On a metered or slow connection we leave the
+  // poster frame in place and let the visitor decide, rather than spending
+  // their data for them.
+  const conn = navigator.connection || navigator.mozConnection || navigator.webkitConnection
+  const frugal = !!conn && (conn.saveData === true || /^(slow-)?2g$/.test(conn.effectiveType || ''))
+
+  const loadSource = () => {
+    if (video.src) return
+    video.src = video.dataset.src
+    video.load()
   }
 
-  const pauseVideo = () => {
-    video.pause()
-    updatePlayIcon()
+  const attemptPlay = () => {
+    if (!video.src) return
+    const p = video.play()
+    if (p && typeof p.catch === 'function') {
+      p.then(() => showTapPlay(false)).catch(() => showTapPlay(true))
+    }
   }
 
-  video.addEventListener('canplay', () => {
-    playVideo()
+  // Fade the frame in over the poster only once there is something to show.
+  const markReady = () => video.classList.add('is-ready')
+  video.addEventListener('loadeddata', () => { markReady(); attemptPlay() }, { once: true })
+  video.addEventListener('canplay', attemptPlay)
+  video.addEventListener('playing', () => showTapPlay(false))
+  video.addEventListener('error', () => showTapPlay(true))
+
+  if (frugal) {
+    showTapPlay(true)
+  } else {
+    loadSource()
+    // A user gesture anywhere unblocks playback on the strictest browsers.
+    const unblock = () => { if (video.paused) attemptPlay() }
+    document.addEventListener('touchstart', unblock, { once: true, passive: true })
+    document.addEventListener('click', unblock, { once: true })
+  }
+
+  tapPlay?.addEventListener('click', (e) => {
+    e.stopPropagation()
+    loadSource()
+    attemptPlay()
   })
 
-  playPauseBtn.addEventListener('click', (e) => {
-    e.stopPropagation()
-    if (video.paused) {
-      playVideo()
-    } else {
-      pauseVideo()
-    }
+  // Pause while off-screen so the phone is not decoding video it cannot show.
+  let inView = true
+  if ('IntersectionObserver' in window) {
+    new IntersectionObserver((entries) => entries.forEach((entry) => {
+      inView = entry.isIntersecting
+      if (inView) attemptPlay()
+      else if (!video.paused) video.pause()
+    }), { threshold: 0.15 }).observe(video)
+  }
+
+  // Stop decoding while the tab is in the background, and only pick up again
+  // if the hero is still the thing on screen.
+  document.addEventListener('visibilitychange', () => {
+    if (document.hidden) { if (!video.paused) video.pause() }
+    else if (inView) attemptPlay()
   })
 
   if (volumeBtn) {
+    const syncVolumeBtn = () => {
+      const on = !video.muted
+      volumeBtn.classList.toggle('high', on)
+      volumeBtn.classList.toggle('low', !on)
+      volumeBtn.setAttribute('aria-pressed', String(on))
+      volumeBtn.setAttribute('aria-label', on ? 'Turn sound off' : 'Turn sound on')
+    }
+
     volumeBtn.addEventListener('click', (e) => {
       e.stopPropagation()
-      isMuted = !isMuted
-      video.muted = isMuted
-      if (isMuted) {
-        volumeBtn.classList.add('low')
-        volumeBtn.classList.remove('high')
-      } else {
-        volumeBtn.classList.add('high')
-        volumeBtn.classList.remove('low')
-      }
+      video.muted = !video.muted
+      // Unmuting counts as a gesture, so this is also our best chance to start playback.
+      if (video.paused) attemptPlay()
+      syncVolumeBtn()
     })
-    volumeBtn.classList.add('low')
-  }
 
-  video.addEventListener('click', () => {
-    video.muted = !video.muted
-    isMuted = video.muted
-    if (isMuted) {
-      volumeBtn.classList.add('low')
-      volumeBtn.classList.remove('high')
-    } else {
-      volumeBtn.classList.add('high')
-      volumeBtn.classList.remove('low')
+    video.addEventListener('volumechange', syncVolumeBtn)
+    syncVolumeBtn()
+
+    // Click-the-video-to-toggle-sound is a nice desktop affordance but a trap on
+    // a phone, where any stray tap would blast audio. Mice and trackpads only.
+    if (window.matchMedia('(hover:hover) and (pointer:fine)').matches) {
+      video.addEventListener('click', () => {
+        video.muted = !video.muted
+        syncVolumeBtn()
+      })
+      video.style.cursor = 'pointer'
     }
-  })
-
-  video.addEventListener('ended', () => {
-    updatePlayIcon()
-  })
+  }
 }
-
-

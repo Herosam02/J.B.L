@@ -89,15 +89,16 @@ export function renderShell(pageId, contentHtml) {
       </a>
       <nav class="nav-menu" aria-label="Main navigation">${navHtml}</nav>
       <a class="nav-cta" href="contact.html">Get in touch <span>↗</span></a>
-      <button class="hamburger" aria-label="Open menu"><span></span><span></span><span></span></button>
+      <button class="hamburger" aria-label="Open menu" aria-expanded="false" aria-controls="mobileMenu"><span></span><span></span><span></span></button>
     </header>
-    <div class="mobile-menu" id="mobileMenu"></div>`
+    <div class="mobile-backdrop" id="mobileBackdrop" hidden></div>
+    <nav class="mobile-menu" id="mobileMenu" aria-label="Mobile navigation"></nav>`
 
   const footer = `
     <footer class="site-footer">
       <div class="footer-grid">
         <div class="footer-brand">
-          <a class="brand" href="index.html"><span class="brand-mark">JBL</span><span class="brand-copy"><strong>JBL</strong><small>ENGINEERING</small></span></a>
+          <a class="brand" href="index.html"><img class="brand-logo" src="/images/logo.png" alt="JBL Engineering logo" /></a>
           <p class="footer-tag">Electrical · Telecoms · Infrastructure</p>
         </div>
         <div class="footer-col">
@@ -150,6 +151,7 @@ export function renderShell(pageId, contentHtml) {
 }
 
 export function initShell() {
+  const current = window.location.pathname.split('/').pop() || 'index.html'
   const navbar = document.querySelector('.navbar')
   const hamburger = document.querySelector('.hamburger')
   const mobileMenu = document.querySelector('.mobile-menu')
@@ -176,37 +178,63 @@ export function initShell() {
   })
 
   // Mobile menu
+  const backdrop = document.getElementById('mobileBackdrop')
+
   const buildMobileMenu = () => NAV.map(item => {
     if (item.dropdown) {
-      const subs = item.dropdown.map(sub => `<a href="${sub.href}">${sub.label}</a>`).join('')
-      return `<div class="mobile-nav-group"><button class="mobile-nav-toggle">${item.label} <span>+</span></button><div class="mobile-nav-subs">${subs}</div></div>`
+      const groupActive = item.dropdown.some(sub => sub.href === current)
+      const subs = item.dropdown
+        .map(sub => `<a class="${sub.href === current ? 'active' : ''}" href="${sub.href}">${sub.label}</a>`)
+        .join('')
+      return `<div class="mobile-nav-group"><button class="mobile-nav-toggle" aria-expanded="${groupActive}">${item.label} <span>${groupActive ? '−' : '+'}</span></button><div class="mobile-nav-subs${groupActive ? ' open' : ''}">${subs}</div></div>`
     }
-    return `<a class="mobile-nav-link" href="${item.href}">${item.label}</a>`
+    return `<a class="mobile-nav-link ${item.href === current ? 'active' : ''}" href="${item.href}">${item.label}</a>`
   }).join('')
 
+  const setMenu = (open) => {
+    mobileMenu?.classList.toggle('open', open)
+    hamburger?.classList.toggle('open', open)
+    hamburger?.setAttribute('aria-expanded', String(open))
+    hamburger?.setAttribute('aria-label', open ? 'Close menu' : 'Open menu')
+    if (backdrop) {
+      backdrop.hidden = false
+      backdrop.classList.toggle('open', open)
+    }
+    // Lock the page behind the panel without losing the reader's scroll position.
+    document.body.style.overflow = open ? 'hidden' : ''
+  }
+
   hamburger?.addEventListener('click', () => {
-    const isOpen = mobileMenu.classList.toggle('open')
-    hamburger.classList.toggle('open', isOpen)
-    if (isOpen && !mobileMenu.innerHTML) {
+    const willOpen = !mobileMenu.classList.contains('open')
+    if (willOpen && !mobileMenu.innerHTML) {
       mobileMenu.innerHTML = buildMobileMenu()
       mobileMenu.querySelectorAll('.mobile-nav-toggle').forEach((btn) => {
         btn.addEventListener('click', () => {
           const subs = btn.nextElementSibling
           const open = subs.classList.toggle('open')
+          btn.setAttribute('aria-expanded', String(open))
           btn.querySelector('span').textContent = open ? '−' : '+'
         })
       })
     }
-    document.body.style.overflow = isOpen ? 'hidden' : ''
+    setMenu(willOpen)
+  })
+
+  backdrop?.addEventListener('click', () => setMenu(false))
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && mobileMenu?.classList.contains('open')) setMenu(false)
   })
 
   // Close mobile menu on navigation
   mobileMenu?.addEventListener('click', (e) => {
-    if (e.target.tagName === 'A') {
-      mobileMenu.classList.remove('open')
-      hamburger.classList.remove('open')
-      document.body.style.overflow = ''
-    }
+    if (e.target.closest('a')) setMenu(false)
+  })
+
+  // Rotating to landscape can cross the breakpoint while the panel is open,
+  // which would otherwise leave the body scroll-locked on desktop.
+  window.addEventListener('resize', () => {
+    if (window.innerWidth > 860 && mobileMenu?.classList.contains('open')) setMenu(false)
   })
 
   // Reveal animations

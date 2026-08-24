@@ -19,9 +19,9 @@ const html = `
 
   <section class="page-section">
     <div class="breadcrumb"><a href="index.html">Home</a><span>/</span>Projects</div>
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:end;margin-bottom:50px">
+    <div class="section-head">
       <div class="reveal"><p class="eyebrow"><span></span> Past projects</p><h2>Work with<br><em>weight.</em></h2></div>
-      <div class="project-filters" style="justify-self:end">
+      <div class="project-filters side">
         <button class="filter active" data-filter="all">All</button>
         <button class="filter" data-filter="power">Power</button>
         <button class="filter" data-filter="fibre">Fibre</button>
