@@ -1,0 +1,67 @@
+(function(){const d=document.createElement("link").relList;if(d&&d.supports&&d.supports("modulepreload"))return;for(const a of document.querySelectorAll('link[rel="modulepreload"]'))s(a);new MutationObserver(a=>{for(const n of a)if(n.type==="childList")for(const r of n.addedNodes)r.tagName==="LINK"&&r.rel==="modulepreload"&&s(r)}).observe(document,{childList:!0,subtree:!0});function o(a){const n={};return a.integrity&&(n.integrity=a.integrity),a.referrerPolicy&&(n.referrerPolicy=a.referrerPolicy),a.crossOrigin==="use-credentials"?n.credentials="include":a.crossOrigin==="anonymous"?n.credentials="omit":n.credentials="same-origin",n}function s(a){if(a.ep)return;a.ep=!0;const n=o(a);fetch(a.href,n)}})();const $={tower:"images/tower-night.jpg",towerSteel:"images/project-bts-pole.jpg",technician:"images/technician-tablet.jpg",construction:"images/field-team.jpg",site:"images/hero-site.jpg",solar:"images/solar-panels.jpg",team:"images/jbl-orca-scaffold.jpg",survey:"images/project-bts-site.jpg",power:"images/panel-technician.jpg",control:"images/project-fibre-wiring.jpg",cctv:"images/cctv-camera.jpg",elevator:"images/elevator.jpg",warehouse:"images/jbl-orca-panel.jpg",meeting:"images/network-router.jpg",night:"images/tower-night.jpg",jblHitech:"images/jbl-hitech-formwork.jpg",jblOrcaScaffold:"images/jbl-orca-scaffold.jpg",projectBtsPole:"images/project-bts-pole.jpg",projectFibreWiring:"images/project-fibre-wiring.jpg",projectBtsSite:"images/project-bts-site.jpg"},E=[{href:"index.html",label:"Home"},{href:"about.html",label:"About",dropdown:[{href:"about.html",label:"About Us"},{href:"mission.html",label:"Mission"},{href:"values.html",label:"Values"},{href:"leadership.html",label:"Leadership"},{href:"history.html",label:"History"},{href:"certifications.html",label:"Certifications"}]},{href:"services.html",label:"Services",dropdown:[{href:"services.html",label:"All Services"},{href:"alt-power.html",label:"Alternative Power"},{href:"telecoms.html",label:"Telecommunications"},{href:"fibre.html",label:"Fibre Hub Systems"},{href:"bts.html",label:"BTS Operations"},{href:"transmission.html",label:"Transmission Links"},{href:"energy.html",label:"Energy Systems"},{href:"network-access.html",label:"Network Access"},{href:"security.html",label:"Security Systems"},{href:"vertical-transport.html",label:"Vertical Transport"},{href:"products.html",label:"Products & Supply"}]},{href:"projects.html",label:"Work",dropdown:[{href:"projects.html",label:"All Projects"},{href:"project-1.html",label:"Base Station Power"},{href:"project-2.html",label:"Fibre Hub Setup"},{href:"project-3.html",label:"BTS Installation"},{href:"process.html",label:"Our Process"},{href:"safety.html",label:"Safety"}]},{href:"careers.html",label:"Careers"},{href:"contact.html",label:"Contact"}];function T(m,d){const o=(typeof window<"u"?window.location.pathname.split("/").pop():"")||"index.html";return`<div class="site-shell">${`
+    <header class="navbar" id="navbar">
+      <a class="brand" href="index.html" aria-label="JBL Engineering home">
+        <img class="brand-logo" src="/images/logo.png" alt="JBL Engineering logo" />
+      </a>
+      <nav class="nav-menu" aria-label="Main navigation">${E.map(r=>{if(r.dropdown){const f=r.dropdown.map(c=>`<a class="dropdown-link ${o===c.href?"active":""}" href="${c.href}">${c.label}</a>`).join("");return`
+        <div class="nav-item has-dropdown ${r.dropdown.some(c=>c.href===o)?"active":""}">
+          <a href="${r.href}" class="nav-link">${r.label}</a>
+          <span class="dropdown-arrow" aria-hidden="true">▾</span>
+          <div class="dropdown">${f}</div>
+        </div>`}return`<div class="nav-item"><a class="nav-link ${o===r.href?"active":""}" href="${r.href}">${r.label}</a></div>`}).join("")}</nav>
+      <a class="nav-cta" href="contact.html">Get in touch <span>↗</span></a>
+      <button class="hamburger" aria-label="Open menu" aria-expanded="false" aria-controls="mobileMenu"><span></span><span></span><span></span></button>
+    </header>
+    <div class="mobile-backdrop" id="mobileBackdrop" hidden></div>
+    <nav class="mobile-menu" id="mobileMenu" aria-label="Mobile navigation"></nav>`}<main class="page-content">${d}</main>
+    <footer class="site-footer">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a class="brand" href="index.html"><img class="brand-logo" src="/images/logo.png" alt="JBL Engineering logo" /></a>
+          <p class="footer-tag">Electrical · Telecoms · Infrastructure</p>
+        </div>
+        <div class="footer-col">
+          <p class="footer-col-title">Company</p>
+          <a href="about.html">About Us</a>
+          <a href="mission.html">Mission</a>
+          <a href="values.html">Values</a>
+          <a href="leadership.html">Leadership</a>
+          <a href="history.html">History</a>
+          <a href="certifications.html">Certifications</a>
+        </div>
+        <div class="footer-col">
+          <p class="footer-col-title">Services</p>
+          <a href="services.html">All Services</a>
+          <a href="alt-power.html">Alternative Power</a>
+          <a href="telecoms.html">Telecommunications</a>
+          <a href="fibre.html">Fibre Hub Systems</a>
+          <a href="bts.html">BTS Operations</a>
+          <a href="transmission.html">Transmission Links</a>
+          <a href="energy.html">Energy Systems</a>
+          <a href="network-access.html">Network Access</a>
+          <a href="security.html">Security Systems</a>
+          <a href="vertical-transport.html">Vertical Transport</a>
+          <a href="products.html">Products & Supply</a>
+        </div>
+        <div class="footer-col">
+          <p class="footer-col-title">Work</p>
+          <a href="projects.html">All Projects</a>
+          <a href="project-1.html">Base Station Power</a>
+          <a href="project-2.html">Fibre Hub Setup</a>
+          <a href="project-3.html">BTS Installation</a>
+          <a href="process.html">Our Process</a>
+          <a href="safety.html">Safety</a>
+          <a href="careers.html">Careers</a>
+        </div>
+        <div class="footer-contact">
+          <p class="footer-col-title">Contact</p>
+          <a href="mailto:jblengineering1@gmail.com">jblengineering1@gmail.com</a>
+          <a href="tel:07044440562">0704 444 0562</a>
+          <a href="https://wa.me/2347044440562" target="_blank" rel="noopener">WhatsApp ↗</a>
+          <a href="contact.html">Send an enquiry →</a>
+          <span>5, Road 2, Oluode Estate,<br>Oluyole Extension, Ibadan</span>
+          <span>38, Opeifa Street,<br>Anthony Village, Lagos</span>
+        </div>
+      </div>
+      <p class="footer-bottom">© 2024 JBL Engineering. Built for progress.</p>
+    </footer><a class="whatsapp-float" href="https://wa.me/2347044440562" target="_blank" rel="noopener" aria-label="Chat on WhatsApp"><svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg></a><button class="ai-chatbot-toggle" id="aiChatToggle" aria-label="Open AI assistant">AI</button><div class="ai-chatbot-panel" id="aiChatPanel"><div class="ai-chatbot-header"><span>JBL Assistant</span><button id="aiChatClose" aria-label="Close chat">×</button></div><div class="ai-chatbot-messages" id="aiChatMessages"><div class="ai-chatbot-message bot">Hello! I am the JBL Assistant. Choose a question below or type your own.</div></div><div class="ai-chatbot-questions" id="aiChatQuestions"></div></div></div>`}function I(){const m=window.location.pathname.split("/").pop()||"index.html",d=document.querySelector(".navbar"),o=document.querySelector(".hamburger"),s=document.querySelector(".mobile-menu");window.addEventListener("scroll",()=>{d.classList.toggle("scrolled",window.scrollY>40)},{passive:!0}),document.querySelectorAll(".has-dropdown").forEach(e=>{var i;let t;e.addEventListener("mouseenter",()=>{clearTimeout(t),e.classList.add("open")}),e.addEventListener("mouseleave",()=>{t=setTimeout(()=>e.classList.remove("open"),120)}),(i=e.querySelector(".dropdown-arrow"))==null||i.addEventListener("click",l=>{l.preventDefault(),e.classList.toggle("open")})});const a=document.getElementById("mobileBackdrop"),n=()=>E.map(e=>{if(e.dropdown){const t=e.dropdown.some(l=>l.href===m),i=e.dropdown.map(l=>`<a class="${l.href===m?"active":""}" href="${l.href}">${l.label}</a>`).join("");return`<div class="mobile-nav-group"><button class="mobile-nav-toggle" aria-expanded="${t}">${e.label} <span>${t?"−":"+"}</span></button><div class="mobile-nav-subs${t?" open":""}">${i}</div></div>`}return`<a class="mobile-nav-link ${e.href===m?"active":""}" href="${e.href}">${e.label}</a>`}).join(""),r=e=>{s==null||s.classList.toggle("open",e),o==null||o.classList.toggle("open",e),o==null||o.setAttribute("aria-expanded",String(e)),o==null||o.setAttribute("aria-label",e?"Close menu":"Open menu"),a&&(a.hidden=!1,a.classList.toggle("open",e)),document.body.style.overflow=e?"hidden":""};o==null||o.addEventListener("click",()=>{const e=!s.classList.contains("open");e&&!s.innerHTML&&(s.innerHTML=n(),s.querySelectorAll(".mobile-nav-toggle").forEach(t=>{t.addEventListener("click",()=>{const l=t.nextElementSibling.classList.toggle("open");t.setAttribute("aria-expanded",String(l)),t.querySelector("span").textContent=l?"−":"+"})})),r(e)}),a==null||a.addEventListener("click",()=>r(!1)),document.addEventListener("keydown",e=>{e.key==="Escape"&&(s!=null&&s.classList.contains("open"))&&r(!1)}),s==null||s.addEventListener("click",e=>{e.target.closest("a")&&r(!1)}),window.addEventListener("resize",()=>{window.innerWidth>860&&(s!=null&&s.classList.contains("open"))&&r(!1)});const j=new IntersectionObserver(e=>e.forEach(t=>{t.isIntersecting&&t.target.classList.add("visible")}),{threshold:.12});document.querySelectorAll(".reveal").forEach(e=>j.observe(e));const f=document.querySelectorAll("[data-count]");if(f.length){const e=new IntersectionObserver((t,i)=>t.forEach(l=>{if(!l.isIntersecting)return;const w=l.target,L=Number(w.dataset.count);let b=0;const k=Math.max(1,Math.ceil(L/35)),C=setInterval(()=>{b=Math.min(L,b+k),w.textContent=b,b===L&&clearInterval(C)},35);i.unobserve(w)}),{threshold:.8});f.forEach(t=>e.observe(t))}const p=document.querySelector(".contact-form");p==null||p.addEventListener("submit",e=>{e.preventDefault();const t=p.querySelector(".form-message");t&&(t.textContent="Thanks — your enquiry is ready for the JBL team."),p.reset()});const c=document.querySelectorAll(".filter");c.forEach(e=>e.addEventListener("click",()=>{c.forEach(i=>i.classList.remove("active")),e.classList.add("active");const t=e.dataset.filter;document.querySelectorAll(".project-card").forEach(i=>{i.style.display=t==="all"||i.dataset.category===t?"grid":"none"})}));const u=document.getElementById("aiChatToggle"),h=document.getElementById("aiChatPanel"),v=document.getElementById("aiChatClose"),g=document.getElementById("aiChatMessages"),y=document.getElementById("aiChatQuestions"),S={"What services does JBL offer?":"JBL offers alternative power, telecommunications, fibre hub systems, BTS operations, transmission links, energy systems, network access, security systems, vertical transport, and products & supply.","Where is JBL located?":"JBL is located at 5, Road 2, Oluode Estate, Oluyole Extension, Ibadan, and 38, Opeifa Street, Anthony Village, Lagos.","How can I contact JBL?":"You can contact JBL via email at jblengineering1@gmail.com, phone at 0704 444 0562, or WhatsApp through the chat button on this site.","When was JBL established?":"JBL Engineering was established in April 2007.","Does JBL do telecom infrastructure?":"Yes, JBL specialises in telecommunications infrastructure installation, including FTTH, fibre deployment, and BTS operations.","Can JBL handle power systems?":"Yes, JBL provides power systems integration, maintenance, backup solutions, and right-sized dimensioning for telecom and infrastructure sites."},B=Object.keys(S),A=()=>{y.innerHTML=B.map(e=>`<button>${e}</button>`).join(""),y.querySelectorAll("button").forEach(e=>{e.addEventListener("click",()=>{const t=e.textContent;g.innerHTML+=`<div class="ai-chatbot-message user">${t}</div>`,g.innerHTML+=`<div class="ai-chatbot-message bot">${S[t]}</div>`,g.scrollTop=g.scrollHeight})})};u==null||u.addEventListener("click",()=>{h==null||h.classList.toggle("open"),h.classList.contains("open")&&!y.innerHTML&&A()}),v==null||v.addEventListener("click",()=>h==null?void 0:h.classList.remove("open"))}export{$ as I,I as i,T as r};
